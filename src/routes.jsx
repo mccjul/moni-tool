@@ -1,18 +1,19 @@
 import * as React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
-import Welcome from "./Containers/Welcome";
-import Clients from "./Containers/Clients";
-import Systems from "./Containers/Systems";
-// import Transactions from "./Containers/Transactions";
+/* Routes */
+import Welcome from "./Containers/Welcome.jsx";
+import Clients from "./Containers/Clients.jsx";
+import Systems from "./Containers/Systems.jsx";
+import Transactions from "./Containers/Transactions.jsx";
 
-const Routes = () => (
-  <div>
+const Routes = props => (
+  <Switch>
     <Route exact path="/" component={Welcome} />
     <Route exact path="/Clients" component={Clients} />
     <Route exact path="/Systems/:name" component={Systems} />
-    {/* <Route exact path="/Transactions/:name" component={Transactions} /> */}
-  </div>
+    <Route exact path="/Transactions/:name" component={Transactions} />
+  </Switch>
 );
 
 export default Routes;

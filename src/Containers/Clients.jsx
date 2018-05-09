@@ -1,19 +1,28 @@
 import React from "react";
-
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Link, withRouter } from "react-router-dom";
 import { clients } from "../State/Utils";
-// import { names, transaction_info } from "../utils/options";
 
-export default class Clients extends React.Component {
+/* Actions */
+import { setClient } from "../State/Actions";
+
+class Clients extends React.Component {
   render() {
-    // console.log(transaction_info("DollarCity", "ECC"));
+    const { setClient, history } = this.props;
     return (
       <div>
         <h2>Clients</h2>
         {clients().map((elm, i) => (
-          <Link to={"/Systems/" + elm} key={i}>
-            <button>{elm}</button>
-          </Link>
+          <button
+            onClick={() => {
+              setClient(elm);
+              history.push("/Systems/" + elm);
+            }}
+            key={i}
+          >
+            {elm}
+          </button>
         ))}
         <Link to={"/"}>
           <button>Go Back</button>
@@ -22,3 +31,7 @@ export default class Clients extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ setClient }, dispatch);
+export default connect(null, mapDispatchToProps)(withRouter(Clients));

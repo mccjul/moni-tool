@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { clients } from "../State/Utils";
 
 export default class Welcome extends React.Component {
   render() {
     return (
-      <div>
-        <h2>Welcome to Monitoring tool</h2>
-        <Link to={"/Clients"}>
-          <button>Go to Clients</button>
-        </Link>
+      <div className="container">
+        <div className="has-text-centered">
+          <h2 className="title">Welcome to Monitoring tool</h2>
+          <Link to={"/Clients"}>
+            <button className="button is-info">Go to Clients</button>
+          </Link>
+        </div>
       </div>
     );
   }

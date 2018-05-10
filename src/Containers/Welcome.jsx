@@ -7,7 +7,7 @@ export default class Welcome extends React.Component {
       <div className="container">
         <div className="has-text-centered">
           <h2 className="title">Welcome to Monitoring tool</h2>
-          <Link to={"/Clients"}>
+          <Link to={"/connect"}>
             <button className="button is-info">Go to Clients</button>
           </Link>
         </div>

@@ -51,7 +51,10 @@ class Connect extends React.Component {
             disabled={this.state.client === null || this.state.system === null}
             className="button is-success"
             onClick={() =>
-              this.props.connectSystem(this.state.client, this.state.system)
+              this.props.connectSystem(
+                this.state.client.value,
+                this.state.system.value
+              )
             }
           >
             Connect
@@ -66,6 +69,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     connectSystem: (client, system) => {
       dispatch(connectSystem(client, system));
+      props.history.push("/transactions");
     }
   };
 };

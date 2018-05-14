@@ -1,0 +1,24 @@
+[
+  {
+    "name": "DollarCity",
+    "system": [
+      {
+        "name": "ECC",
+        "transaction_info": ["SM12", "SM13", "SM14"]
+      },
+       {
+        "name": "RANDs",
+        "transaction_info": ["SM12", "SM13", "SM14"]
+      }
+    ]
+  },
+  {
+    "name": "UNI",
+    "system": [
+      {
+        "name": "ECC",
+        "transaction_info": ["SM12", "SM13", "SM14"]
+      }
+    ]
+  }
+]

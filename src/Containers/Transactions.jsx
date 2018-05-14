@@ -1,11 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { transactions } from "../State/Utils";
-
-/* Actions */
-import { setSystem } from "../State/Actions";
 
 class Transactions extends React.Component {
   render() {
@@ -18,7 +14,7 @@ class Transactions extends React.Component {
             <button>{elm}</button>
           </div>
         ))}
-        <Link to={"/Systems/" + client}>
+        <Link to={"/connect"}>
           <button>Back</button>
         </Link>
         {/* <button
@@ -34,10 +30,10 @@ class Transactions extends React.Component {
   }
 }
 
-const mapStateToProps = ({ selection }) => ({
-  client: selection.client,
-  system: selection.system
-});
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ setSystem }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(Transactions);
+const mapStateToProps = ({ selection }) => {
+  return {
+    client: selection.client,
+    system: selection.system
+  };
+};
+export default connect(mapStateToProps, null)(Transactions);

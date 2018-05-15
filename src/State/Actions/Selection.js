@@ -4,7 +4,7 @@ import {
   SET_OPTIONS,
   SET_TRANSACTIONS
 } from "../Constants";
-import { helloWorld, transactions, getConnectionData } from "../Utils";
+// import { helloWorld, transactions, getConnectionData } from "../Utils";
 
 export const setOptions = options => ({ type: SET_OPTIONS, payload: options });
 
@@ -17,6 +17,12 @@ export const setTransactions = transactions => ({
   payload: transactions
 });
 
+async function getConnectionData() {
+  let res = await fetch("http://localhost:5000/options");
+  let json = await res.json();
+  return json;
+}
+
 export const getOptions = () => {
   return async dispatch => {
     dispatch(setOptions(await getConnectionData()));
@@ -24,8 +30,6 @@ export const getOptions = () => {
 };
 
 export const connectSystem = (client, system) => {
-  // let res = await helloWorld();
-  // console.log(res);
   return async dispatch => {
     dispatch(setClient(client));
     dispatch(setSystem(system));

@@ -4,8 +4,10 @@ export const helloWorld = async () => {
   return json;
 };
 
-export const getConnectionData = async () => {
+export async function getConnectionData() {
+  console.log("HEYO");
   let res = await fetch("http://localhost:5000/options");
-  let json = await res.json();
-  return json;
-};
+  console.log(res);
+  //let json = await res.json();
+  //return json;
+}

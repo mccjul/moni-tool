@@ -5,18 +5,15 @@ import Select from "react-select";
 import { clients, systems } from "../State/Utils";
 
 /* Actions */
-import { connectSystem } from "../State/Actions";
-
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" }
-];
+import { connectSystem, getOptions } from "../State/Actions";
 
 class Connect extends React.Component {
   constructor() {
     super();
     this.state = { client: null, system: null };
+  }
+  componentDidMount() {
+    this.props.getOptions();
   }
   render() {
     return (
@@ -27,7 +24,7 @@ class Connect extends React.Component {
             cacheOptions
             isClearable
             onChange={client => this.setState({ client })}
-            options={clients().map(elm => ({
+            options={this.props.clients.map(elm => ({
               value: elm,
               label: elm
             }))}
@@ -39,10 +36,12 @@ class Connect extends React.Component {
               cacheOptions
               isClearable
               onChange={system => this.setState({ system })}
-              options={systems(this.state.client.value).map(elm => ({
-                value: elm,
-                label: elm
-              }))}
+              options={this.props.options
+                .filter(elm => elm.clients === this.state.client.value)[0]
+                ["systems"].map(elm => ({
+                  value: elm,
+                  label: elm
+                }))}
               value={this.state.system}
             />
           )}
@@ -70,8 +69,18 @@ const mapDispatchToProps = (dispatch, props) => {
     connectSystem: (client, system) => {
       dispatch(connectSystem(client, system));
       props.history.push("/transactions");
-    }
+    },
+    getOptions: () => dispatch(getOptions())
+  };
+};
+const mapStateToProps = ({ selection }) => {
+  return {
+    clients:
+      selection.options !== undefined
+        ? selection.options.map(elm => elm.clients)
+        : [],
+    options: selection.options
   };
 };
 
-export default connect(null, mapDispatchToProps)(Connect);
+export default connect(mapStateToProps, mapDispatchToProps)(Connect);

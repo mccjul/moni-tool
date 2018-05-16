@@ -1,39 +1,68 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { transactions } from "../State/Utils";
+import Select from "react-select";
+
+/* Actions */
+import { exeTrans } from "../State/Actions";
 
 class Transactions extends React.Component {
+  constructor() {
+    super();
+    this.state = { trans: [] };
+  }
   render() {
-    const { client, system } = this.props;
+    const { client, system, transactions } = this.props;
+    console.log(this.state.trans.map(elm => elm.value));
     return (
       <div>
         <h2>{client + " " + system + " Transactions"}</h2>
-        {transactions(client, system).map((elm, i) => (
-          <div key={i}>
-            <button>{elm}</button>
-          </div>
-        ))}
+        <Select
+          cacheOptions
+          isClearable
+          isMulti
+          onChange={trans =>
+            this.setState({
+              trans
+            })
+          }
+          options={transactions.map(elm => ({
+            value: elm,
+            label: elm
+          }))}
+          value={this.state.trans}
+        />
+        <button
+          onClick={() =>
+            this.props.exe(
+              client,
+              system,
+              this.state.trans.map(elm => elm.value)
+            )
+          }
+          disabled={this.state.trans.length === 0}
+        >
+          Execute
+        </button>
         <Link to={"/connect"}>
           <button>Back</button>
         </Link>
-        {/* <button
-          onClick={async () => {
-            this.setState({ text: await helloWorld() });
-          }}
-        >
-          push this
-        </button> */}
-        {/* <p>{this.state.text}</p> */}
       </div>
     );
   }
 }
-
-const mapStateToProps = ({ selection }) => {
+const mapDispatchToProps = (dispatch, props) => {
   return {
-    client: selection.client,
-    system: selection.system
+    exe: (client, system, transactions) => {
+      dispatch(exeTrans(client, system, transactions));
+    }
   };
 };
-export default connect(mapStateToProps, null)(Transactions);
+const mapStateToProps = ({ selection }) => {
+  return {
+    client: selection.client || "",
+    system: selection.system || "",
+    transactions: selection.transactions || []
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Transactions);

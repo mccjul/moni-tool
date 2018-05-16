@@ -31,7 +31,12 @@ def connect():
 @app.route("/transactions", methods=['POST'])
 def execute_transactions():
     if request.method == 'POST':
-        return jsonify(request.json)
+        if request.args.get("client") and request.args.get("system"):
+            string_data = request.data.decode('utf8').replace("'", '"')
+            data = json.loads(string_data)
+            return jsonify(data)
+        else:
+            abort(500)
 
 if __name__ == '__main__':
     app.run(debug=True)

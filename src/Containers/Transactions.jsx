@@ -13,7 +13,6 @@ class Transactions extends React.Component {
   }
   render() {
     const { client, system, transactions } = this.props;
-    console.log(this.state.trans.map(elm => elm.value));
     return (
       <div>
         <h2>{client + " " + system + " Transactions"}</h2>

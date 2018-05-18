@@ -4,7 +4,6 @@ import {
   SET_OPTIONS,
   SET_TRANSACTIONS
 } from "../Constants";
-// import { helloWorld, transactions, getConnectionData } from "../Utils";
 
 export const setOptions = options => ({ type: SET_OPTIONS, payload: options });
 

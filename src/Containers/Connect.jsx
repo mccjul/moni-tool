@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Select from "react-select";
-import { clients, systems } from "../State/Utils";
 
 /* Actions */
 import { connectSystem, getOptions } from "../State/Actions";

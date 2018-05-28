@@ -14,8 +14,10 @@ class Transactions extends React.Component {
   render() {
     const { client, system, transactions } = this.props;
     return (
-      <div>
+      <div className="container-fluid text-center" style={{ paddingTop: 100 }}>
         <h2>{client + " " + system + " Transactions"}</h2>
+        <br />
+        <br />
         <Select
           cacheOptions
           isClearable
@@ -31,21 +33,29 @@ class Transactions extends React.Component {
           }))}
           value={this.state.trans}
         />
-        <button
-          onClick={() =>
-            this.props.exe(
-              client,
-              system,
-              this.state.trans.map(elm => elm.value)
-            )
-          }
-          disabled={this.state.trans.length === 0}
-        >
-          Execute
-        </button>
-        <Link to={"/connect"}>
-          <button>Back</button>
-        </Link>
+        <br />
+
+        <div className="btn-group" role="group" aria-label="Basic example">
+          <button
+            type="button"
+            className="btn btn-info"
+            onClick={() =>
+              this.props.exe(
+                client,
+                system,
+                this.state.trans.map(elm => elm.value)
+              )
+            }
+            disabled={this.state.trans.length === 0}
+          >
+            Execute
+          </button>
+          <Link to={"/connect"}>
+            <button type="button" className="btn btn-secondary">
+              Back
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, abort
 import json
+from Monitool import *
 
 
 app = Flask(__name__)
@@ -19,12 +20,16 @@ def get_options():
 
 @app.route('/connect')
 def connect():
+    monitool = Monitool()
     try:
         if request.args.get("client") and request.args.get("system"):
             with open('data.json') as f:
                 data = json.load(f)
                 client = [client for client in data if client["name"] == request.args.get("client")][0]
                 system = [system for system in client["system"] if system["name"] == request.args.get("system")][0]
+                # monitool.set_system(system)
+                monitool.open_sap_logon()
+                monitool.connect_sap_system()
                 return jsonify(system["transaction_info"])
         else:
             abort(500)
@@ -45,3 +50,4 @@ def execute_transactions():
 
 if __name__ == '__main__':
     app.run(debug=True)
+

@@ -4,15 +4,18 @@ import json
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def hello_world():
     return jsonify('Hello, World!')
+
 
 @app.route('/options')
 def get_options():
     with open('data.json') as f:
         data = json.load(f)
         return jsonify([{"clients": item["name"], "systems": [x["name"] for x in item["system"]]} for item in data])
+
 
 @app.route('/connect')
 def connect():
@@ -28,6 +31,7 @@ def connect():
     except IndexError:
         abort(500)
 
+
 @app.route("/transactions", methods=['POST'])
 def execute_transactions():
     if request.method == 'POST':
@@ -37,6 +41,7 @@ def execute_transactions():
             return jsonify(data)
         else:
             abort(500)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

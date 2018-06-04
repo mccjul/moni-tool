@@ -17,7 +17,8 @@ def get_options():
 @app.route('/connect')
 def connect():
     try:
-        if request.args.get("client") and request.args.get("system"):
+        if request.args.get("client") and request.args.get("system") and request.args.get("clientnum") and request.args.get("username") and request.args.get("password"):
+            # print(request.args.get("clientnum")  + " " + request.args.get("username")  + " " +  request.args.get("password"))
             with open('data.json') as f:
                 data = json.load(f)
                 client = [client for client in data if client["name"] == request.args.get("client")][0]

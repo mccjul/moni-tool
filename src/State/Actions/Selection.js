@@ -22,9 +22,21 @@ export const getOptions = () => {
   };
 };
 
-export const connectSystem = (client, system) => {
+export const connectSystem = (
+  client,
+  system,
+  clientNum,
+  username,
+  password
+) => {
   return async dispatch => {
-    let transactions = await Connect(client, system);
+    let transactions = await Connect(
+      client,
+      system,
+      clientNum,
+      username,
+      password
+    );
     await dispatch(setClient(client));
     await dispatch(setSystem(system));
     await dispatch(setTransactions(transactions));
@@ -46,10 +58,19 @@ async function getConnectionData() {
   return json;
 }
 
-async function Connect(client, system) {
+async function Connect(client, system, clientNum, username, password) {
   //?client=DollarCity&system=ECC
   let res = await fetch(
-    "http://localhost:5000/connect?client=" + client + "&system=" + system
+    "http://localhost:5000/connect?client=" +
+      client +
+      "&system=" +
+      system +
+      "&clientnum=" +
+      clientNum +
+      "&username=" +
+      username +
+      "&password=" +
+      password
   );
   let json = await res.json();
   return json;

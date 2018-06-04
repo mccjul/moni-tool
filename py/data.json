@@ -3,7 +3,7 @@
     "name": "DollarCity",
     "system": [
       {
-        "name": "ECC",
+        "name": "QE6",
         "transaction_info": ["SM12", "SM13", "SM14"]
       },
        {
@@ -16,7 +16,7 @@
     "name": "UNI",
     "system": [
       {
-        "name": "ECC",
+        "name": "ECD",
         "transaction_info": ["SM12", "SM13", "SM14"]
       }
     ]

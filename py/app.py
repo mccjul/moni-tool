@@ -1,12 +1,15 @@
 from flask import Flask, jsonify, request, abort
 import json
+from Monitool import *
 
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def hello_world():
     return jsonify('Hello, World!')
+
 
 @app.route('/options')
 def get_options():
@@ -14,8 +17,10 @@ def get_options():
         data = json.load(f)
         return jsonify([{"clients": item["name"], "systems": [x["name"] for x in item["system"]]} for item in data])
 
+
 @app.route('/connect')
 def connect():
+    monitool = Monitool()
     try:
         if request.args.get("client") and request.args.get("system") and request.args.get("clientnum") and request.args.get("username") and request.args.get("password"):
             # print(request.args.get("clientnum")  + " " + request.args.get("username")  + " " +  request.args.get("password"))
@@ -23,11 +28,15 @@ def connect():
                 data = json.load(f)
                 client = [client for client in data if client["name"] == request.args.get("client")][0]
                 system = [system for system in client["system"] if system["name"] == request.args.get("system")][0]
+                # monitool.set_system(system)
+                monitool.open_sap_logon()
+                monitool.connect_sap_system()
                 return jsonify(system["transaction_info"])
         else:
             abort(500)
     except IndexError:
         abort(500)
+
 
 @app.route("/transactions", methods=['POST'])
 def execute_transactions():
@@ -39,5 +48,7 @@ def execute_transactions():
         else:
             abort(500)
 
+
 if __name__ == '__main__':
     app.run(debug=True)
+

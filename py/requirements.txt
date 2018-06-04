@@ -1,1 +1,11 @@
 flask
+pypiwin32
+pywinauto
+numpy
+pillow
+keyboard
+selenium
+flask
+PyAutoGUI
+opencv-python
+python3_xlib
